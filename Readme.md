@@ -80,27 +80,31 @@
 ## 4.
 Код  
  
-                #!/usr/bin/python
-                import json
-                import dns
-                
-                lasres={}
-                with open('result','r') as infile:
-                lasres=json.load(infile)
-                from dns import resolver
-                res={}
-                print (lasres)
-                with open('/home/mikhail/python/ipad', 'r', encoding='utf-8') as file:
-                for m in file.readlines():
-                ip = dns.resolver.query(m.rstrip())
-                res[m.rstrip()]=(list(map(str,ip)))
-                for i in res:
-                comm = set(res[i]) & set(lasres[i])
-                if set(res[i])-comm != set():
-                print('ERROR ',i,'IP mismatch: ',set(res[i])-comm ,set(lasres[i])-comm)
-                with open ('result' ,'w') as outfile:
-                json.dump(res, outfile)
-                print (res)
+                  GNU nano 4.8                                           ip-t.py
+#!/usr/bin/python
+import json
+import dns
+
+
+lasres={}
+with open('result','r') as infile:
+ lasres=json.load(infile)
+from dns import resolver
+res={}
+print (lasres)
+with open('/home/mikhail/python/ipad', 'r', encoding='utf-8') as file:
+ for m in file.readlines():
+   ip = dns.resolver.query(m.rstrip())
+   res[m.rstrip()]=(list(map(str,ip)))
+for i in res:
+ comm = set(res[i]) & set(lasres[i])
+ if set(res[i])-comm != set():
+  print('ERROR ',i,'IP mismatch: ',set(res[i])-comm ,set(lasres[i])-comm)
+with open ('result' ,'w') as outfile:
+  json.dump(res, outfile)
+print (res)
+
+
 вывод
 
                 python3 ip-t.py
